@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<script src="lib/angjs.js"></script>
+<div ng-include="'commons/load-libs.html'"></div>
+</head>
+<body ng-app="">
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<div class="w3-card-4 w3-light-blue">
+						<div class="w3-container">
+							<h3>Login Using Email</h3>
+							<br>
+							<form>
+								<br> <label>Email</label> <input class="w3-input"
+									type="email" name="email" id="email" required><br>
+								<div style="display: block" id="generateButton">
+									<button class="w3-button w3-green"
+										onclick="generateOtp(email.value)">Click Here To
+										Generate OTP</button>
+								</div>
+								<br>
+								<div style="display: none" id="enterOtp">
+									<label>Enter OTP</label> <input class="w3-input" type="number"
+										name="enteredOtp" required><br>
+									<button class="w3-button w3-green"
+										onclick="verifyOtp(enteredOtp.value)">Click Here To
+										Verify OTP</button>
+									<button class="w3-button w3-green"
+										onclick="generateOtp(email.value)">Click Here To
+										Resend OTP</button>
+								</div>
+								<br> <br> <br>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var otp;
+		function generateOtp(email) {
+			var regex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			if (!regex.test(email)) {
+				alert("Enter valid email address.")
+				return;
+			}
+			otp = Math.floor(100000 + Math.random() * 900000);
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				document.getElementById('generateButton').style.display = 'none';
+				document.getElementById('enterOtp').style.display = 'block';
+				document.getElementById('email').disabled = true;
+			};
+			xhr.open('POST', "GenerateOTPForEmailLogin?email=" + email
+					+ "&otp=" + otp, true);
+			xhr.send();
+		}
+
+		function verifyOtp(enteredOtp) {
+			var regex = /^\d{6}$/;
+			if (!regex.test(enteredOtp)) {
+				alert("OTP must be six digits.")
+				return;
+			}
+			if (otp == enteredOtp) {
+				window.location.href = "login-successful.html";
+			} else {
+				window.location.href = "login-failed.html";
+			}
+		}
+	</script>
+</body>
+</html>
+

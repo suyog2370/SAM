@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+<script src="lib/angjs.js"></script>
+<script src="lib/w3-lib.js"></script>
+<script src="js/validation.js"></script>
+<div ng-include="'commons/load-libs.html'"></div>
+</head>
+<body ng-app="">
+	<div class="jumbotron">
+		<div class="container">
+			<div class="w3-card-4">
+				<div class="w3-container w3-light-blue">
+					<h2>Registration</h2>
+				</div>
+				<div class="w3-container">
+					<br>
+					<form action="RegistrationServlet" method="post">
+						<div class="row">
+							<div class="col-md-12">
+								<label>Name</label> <input class="w3-input" type="text"
+									name="name" id="name" onchange="checkName()" required>
+							</div>
+						</div>
+						<br> <br>
+						<div class="row">
+							<div class="col-md-6">
+								<label>E-mail</label> <input class="w3-input" type="email"
+									name="email" id="email" onchange="checkEmail()" required>
+							</div>
+							<div class="col-md-6">
+								<label>Mobile No</label> <input class="w3-input" type="number"
+									name="mobileNo" id="mobileNo" onchange="checkMobileNo()"
+									required>
+							</div>
+						</div>
+						<br> <br> <br>
+						<button type="submit" class="w3-button w3-light-green w3-teal">Register</button>
+						<button type="reset" class="w3-button w3-gray">Clear</button>
+						<br> <br> <br>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
